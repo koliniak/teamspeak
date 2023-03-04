@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Odliczanie czasu do płatności za serwer TeamSpeak</title>
+    <style>
+      body {
+        background-color: #1a1a2e;
+        font-family: sans-serif;
+        text-align: center;
+      }
+      
+      h1 {
+        color: #fff;
+        margin-top: 40px;
+      }
+      
+      p {
+        font-size: 24px;
+        color: #bbb;
+      }
+      
+      #countdown {
+        font-size: 36px;
+        font-weight: bold;
+        margin-top: 20px;
+        color: #fff;
+      }
+      
+      #payment-button {
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 4px;
+        font-size: 20px;
+        margin-top: 40px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Odliczanie czasu do płatności za serwer TeamSpeak</h1>
+    <p>Do końca TeamSpeaka zostało:</p>
+    <div id="countdown"></div>
+    <button id="payment-button">Zapłać za serwer TeamSpeak</button>
+    <p>Cena z serwer 9.11zł</p>
+    <script>
+      // Ustaw datę, do której ma odliczać
+      var countDownDate = new Date();
+      countDownDate.setMonth(countDownDate.getMonth() + 1);
+      countDownDate.setDate(1);
+      countDownDate.setHours(0);
+      countDownDate.setMinutes(0);
+      countDownDate.setSeconds(0);
+
+      // Update co 1 sekundę
+      var countdownTimer = setInterval(function() {
+        // Oblicz pozostały czas
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+
+        // Obliczanie dni, godzin, minut i sekund
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Ustaw tekst w divie z odliczaniem
+        document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+        // Zatrzymaj odliczanie po osiągnięciu celu
+        if (distance < 0) {
+          clearInterval(countdownTimer);
+          document.getElementById("countdown").innerHTML = "Czas minął!";
+        }
+      }, 1000);
+
+      // Przekierowanie do strony z płatnością za serwer po kliknięciu na przycisk
+      document.getElementById("payment-button").addEventListener("click", function() {
+        window.location.href = "https://net-speak.pl/payu.php?portfel_id=73913";
+      });
+    </script>
+  </body>
+</html>
